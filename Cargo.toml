@@ -1,6 +1,6 @@
 [package]
 name = "linux-guide"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2024"
 description = "A TUI tool that explains Linux commands using whatis/man pages"
 homepage = "https://github.com/RehanIlyas-dev/Linux-Guide"

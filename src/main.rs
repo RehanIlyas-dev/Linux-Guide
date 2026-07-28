@@ -32,12 +32,12 @@ const BANNER: &[&str] = &[
 ];
 
 const BANNER_COLORS: &[Color] = &[
-    Color::Magenta,
+    Color::Rgb(147, 112, 219),
     Color::Black,
     Color::Yellow,
-    Color::Magenta,
+    Color::Rgb(147, 112, 219),
     Color::Black,
-    Color::Magenta,
+    Color::Rgb(147, 112, 219),
 ];
 
 #[derive(Parser)]
@@ -677,7 +677,7 @@ fn render_input(f: &mut Frame, area: Rect, app: &App) {
     let prompt = Span::styled(
         "\u{276F}\u{276F} ",
         Style::default()
-            .fg(Color::Magenta)
+            .fg(Color::Rgb(147, 112, 219))
             .add_modifier(Modifier::BOLD),
     );
 
@@ -708,7 +708,7 @@ fn render_input(f: &mut Frame, area: Rect, app: &App) {
                     .fg(Color::Yellow)
                     .add_modifier(Modifier::BOLD)
             } else {
-                Style::default().fg(Color::Magenta)
+                Style::default().fg(Color::Rgb(147, 112, 219))
             };
             lines.push(Line::from(Span::styled(format!("{}{}", p, sug), st)));
         }
@@ -732,7 +732,7 @@ fn render_output(f: &mut Frame, area: Rect, app: &App) {
                 || l.contains("\u{2192}")
                 || l.starts_with("  Welcome to Linux Guide")
             {
-                (Color::Magenta, Modifier::BOLD)
+                (Color::Rgb(147, 112, 219), Modifier::BOLD)
             } else if l.starts_with("   Source:") {
                 (Color::Cyan, Modifier::empty())
             } else if l.starts_with("   # ") || l == "   #" || l.starts_with("   #[") {
@@ -759,11 +759,11 @@ fn render_output(f: &mut Frame, area: Rect, app: &App) {
 fn render_guide(f: &mut Frame, area: Rect, app: &App) {
     let sep = Span::styled(
         "\u{2500}".repeat(area.width as usize),
-        Style::default().fg(Color::Magenta),
+        Style::default().fg(Color::Rgb(147, 112, 219)),
     );
 
     let mut keys: Vec<(&str, Color)> = vec![
-        (" Enter ", Color::Magenta),
+        (" Enter ", Color::Rgb(147, 112, 219)),
         ("Look up", Color::White),
         ("  \u{2502}  ", Color::DarkGray),
     ];
@@ -778,14 +778,14 @@ fn render_guide(f: &mut Frame, area: Rect, app: &App) {
 
     if app.show_man_prompt {
         keys.extend_from_slice(&[
-            (" M ", Color::Magenta),
+            (" M ", Color::Rgb(147, 112, 219)),
             ("Man page", Color::White),
             ("  \u{2502}  ", Color::DarkGray),
         ]);
     }
 
     keys.extend_from_slice(&[
-        (" \u{2191}\u{2193} ", Color::Magenta),
+        (" \u{2191}\u{2193} ", Color::Rgb(147, 112, 219)),
         ("Scroll", Color::White),
         ("  \u{2502}  ", Color::DarkGray),
         (" Q ", Color::Red),
