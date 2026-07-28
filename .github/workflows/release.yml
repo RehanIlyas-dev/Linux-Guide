@@ -1,0 +1,54 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build ${{ matrix.target }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            bin: linux-guide-linux-amd64
+          - os: ubuntu-latest
+            target: aarch64-unknown-linux-gnu
+            bin: linux-guide-linux-arm64
+          - os: macos-latest
+            target: x86_64-apple-darwin
+            bin: linux-guide-macos-amd64
+          - os: macos-latest
+            target: aarch64-apple-darwin
+            bin: linux-guide-macos-arm64
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Install cross-compilation tools (aarch64-linux)
+        if: matrix.target == 'aarch64-unknown-linux-gnu'
+        run: sudo apt-get update && sudo apt-get install -y gcc-aarch64-linux-gnu
+
+      - name: Set cargo linker for aarch64-linux
+        if: matrix.target == 'aarch64-unknown-linux-gnu'
+        run: |
+          mkdir -p .cargo
+          echo '[target.aarch64-unknown-linux-gnu]' >> .cargo/config.toml
+          echo 'linker = "aarch64-linux-gnu-gcc"' >> .cargo/config.toml
+
+      - run: cargo build --release --target ${{ matrix.target }}
+
+      - run: cp target/${{ matrix.target }}/release/linux-guide ${{ matrix.bin }}
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ matrix.bin }}

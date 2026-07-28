@@ -1,0 +1,15 @@
+[package]
+name = "linux-guide"
+version = "0.1.1"
+edition = "2024"
+description = "A TUI tool that explains Linux commands using whatis/man pages"
+homepage = "https://github.com/RehanIlyas-dev/Linux-Guide"
+repository = "https://github.com/RehanIlyas-dev/Linux-Guide"
+license = "MIT"
+keywords = ["cli", "linux", "tui", "man", "help"]
+categories = ["command-line-utilities"]
+
+[dependencies]
+ratatui = "0.29"
+crossterm = "0.28"
+clap = { version = "4", features = ["derive"] }
